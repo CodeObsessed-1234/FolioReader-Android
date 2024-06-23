@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Parcelable;
+
+import androidx.annotation.Keep;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.folioreader.model.HighLight;
@@ -19,6 +21,9 @@ import com.folioreader.ui.base.OnSaveHighlight;
 import com.folioreader.ui.base.SaveReceivedHighlightTask;
 import com.folioreader.util.OnHighlightListener;
 import com.folioreader.util.ReadLocatorListener;
+
+import org.greenrobot.eventbus.Subscribe;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -31,6 +36,7 @@ import java.util.concurrent.TimeUnit;
  * Created by avez raj on 9/13/2017.
  */
 
+@Keep
 public class FolioReader {
 
     @SuppressLint("StaticFieldLeak")
@@ -226,7 +232,7 @@ public class FolioReader {
         this.onHighlightListener = onHighlightListener;
         return singleton;
     }
-
+    @Subscribe
     public FolioReader setReadLocatorListener(ReadLocatorListener readLocatorListener) {
         this.readLocatorListener = readLocatorListener;
         return singleton;

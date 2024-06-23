@@ -1,12 +1,16 @@
 package com.folioreader.ui.activity;
 
 import android.graphics.Rect;
+
+import androidx.annotation.Keep;
+
 import com.folioreader.Config;
 import com.folioreader.model.DisplayUnit;
 import com.folioreader.model.locators.ReadLocator;
 
 import java.lang.ref.WeakReference;
 
+@Keep
 public interface FolioActivityCallback {
 
     int getCurrentChapterIndex();

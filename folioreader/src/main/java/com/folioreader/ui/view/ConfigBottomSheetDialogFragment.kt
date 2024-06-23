@@ -5,6 +5,7 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import com.folioreader.util.UiUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.android.synthetic.main.layout_dictionary.*
 import kotlinx.android.synthetic.main.view_config.*
 import org.greenrobot.eventbus.EventBus
 
@@ -74,6 +76,7 @@ class ConfigBottomSheetDialogFragment : BottomSheetDialogFragment() {
         inflateView()
         configFonts()
         view_config_font_size_seek_bar.progress = config.fontSize
+        lineHeightView.progress = config.lineHeight
         configSeekBar()
         selectFont(config.font, false)
         isNightMode = config.isNightMode
@@ -96,10 +99,47 @@ class ConfigBottomSheetDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
+
+    private fun configSeekBar() {
+        val thumbDrawable = ContextCompat.getDrawable(activity!!, R.drawable.seekbar_thumb)
+        UiUtil.setColorIntToDrawable(config.themeColor, thumbDrawable)
+        UiUtil.setColorResToDrawable(R.color.grey_color, view_config_font_size_seek_bar.progressDrawable)
+        view_config_font_size_seek_bar.thumb = thumbDrawable
+
+
+        view_config_font_size_seek_bar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                config.fontSize = progress
+
+                updateUiValue()
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
+        })
+
+
+        lineHeightView.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                config.lineHeight = progress
+
+                updateUiValue()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
+        })
+    }
+
+    private fun updateUiValue(){
+        AppUtil.saveConfig(activity, config)
+        EventBus.getDefault().post(ReloadDataEvent())
+    }
+
     private fun inflateView() {
 
         if (config.allowedDirection != Config.AllowedDirection.VERTICAL_AND_HORIZONTAL) {
-            view5.visibility = View.GONE
             buttonVertical.visibility = View.GONE
             buttonHorizontal.visibility = View.GONE
         }
@@ -252,24 +292,6 @@ class ConfigBottomSheetDialogFragment : BottomSheetDialogFragment() {
         colorAnimation.start()
     }
 
-    private fun configSeekBar() {
-        val thumbDrawable = ContextCompat.getDrawable(activity!!, R.drawable.seekbar_thumb)
-        UiUtil.setColorIntToDrawable(config.themeColor, thumbDrawable)
-        UiUtil.setColorResToDrawable(R.color.grey_color, view_config_font_size_seek_bar.progressDrawable)
-        view_config_font_size_seek_bar.thumb = thumbDrawable
-
-        view_config_font_size_seek_bar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                config.fontSize = progress
-                AppUtil.saveConfig(activity, config)
-                EventBus.getDefault().post(ReloadDataEvent())
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar) {}
-        })
-    }
 
     private fun setToolBarColor() {
         if (isNightMode) {

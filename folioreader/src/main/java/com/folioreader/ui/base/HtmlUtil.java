@@ -1,6 +1,8 @@
 package com.folioreader.ui.base;
 
 import android.content.Context;
+import android.util.Log;
+
 import com.folioreader.Config;
 import com.folioreader.Constants;
 import com.folioreader.R;
@@ -81,6 +83,30 @@ public final class HtmlUtil {
             classes += " nightMode";
         }
 
+
+
+        switch (config.getLineHeight()) {
+            case 0:
+                classes += " lineHeightOne";
+                break;
+            case 1:
+                classes += " lineHeightTwo";
+                break;
+            case 2:
+                classes += " lineHeightThree";
+                break;
+            case 3:
+                classes += " lineHeightFour";
+                break;
+            case 4:
+                classes += " lineHeightFive";
+                break;
+            default:
+                break;
+        }
+
+
+
         switch (config.getFontSize()) {
             case 0:
                 classes += " textSizeOne";
@@ -101,6 +127,9 @@ public final class HtmlUtil {
                 break;
         }
 
+        Log.d("TAG", "getHtmlContent: "+classes);
+
+        Log.d("TAG", "getHtmlContent: "+config);
         htmlContent = htmlContent.replace("<html", "<html class=\"" + classes + "\"" +
                 " onclick=\"onClickHtml()\"");
         return htmlContent;

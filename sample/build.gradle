@@ -5,6 +5,14 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
 
+    signingConfigs {
+        release {
+            storeFile file('E:\\coding\\opensource\\FolioReader-Android\\build\\jks\\folioReader.jks')
+            keyAlias 'key0'
+            storePassword '123456'
+            keyPassword '123456'
+        }
+    }
     compileSdkVersion versions.androidCompileSdk
 
     defaultConfig {
@@ -15,11 +23,13 @@ android {
         versionName versions.projectVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -58,6 +68,8 @@ dependencies {
 
     implementation project(':folioreader')
     //implementation "com.folioreader:folioreader:$versions.folioreaderSdk"
+    implementation "com.folioreader:folioreader:0.5.4"
+    implementation 'org.greenrobot:eventbus:3.3.1'
 
     implementation "com.fasterxml.jackson.core:jackson-core:$versions.jackson"
     implementation "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson"

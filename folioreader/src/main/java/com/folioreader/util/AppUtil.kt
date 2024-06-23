@@ -92,6 +92,7 @@ class AppUtil {
             try {
                 obj.put(Config.CONFIG_FONT, config.font)
                 obj.put(Config.CONFIG_FONT_SIZE, config.fontSize)
+                obj.put(Config.CONFIG_LINE_HEIGHT, config.lineHeight)
                 obj.put(Config.CONFIG_IS_NIGHT_MODE, config.isNightMode)
                 obj.put(Config.CONFIG_THEME_COLOR_INT, config.themeColor)
                 obj.put(Config.CONFIG_IS_TTS, config.isShowTts)

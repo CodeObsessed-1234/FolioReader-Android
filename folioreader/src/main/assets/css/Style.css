@@ -262,11 +262,36 @@ html.nightMode .highlight_underline {border-bottom: 2px solid rgba(240, 40, 20, 
      font-family: "raleway", sans-serif;
  }
 
-html.textSizeOne { font-size: 13px !important; }
-html.textSizeTwo { font-size: 15px !important; }
-html.textSizeThree { font-size: 17px !important; }
+
+html.lineHeightOne {
+    line-height: 1.2em !important;
+    letter-spacing: 0.5px !important;
+}
+html.lineHeightTwo {
+    line-height: 1.5em !important;
+    letter-spacing: 2px !important;
+}
+html.lineHeightThree {
+    line-height: 1.8em !important;
+    letter-spacing: 3px !important;
+}
+html.lineHeightFour {
+    line-height: 2.0em !important;
+    letter-spacing: 4px !important;
+}
+html.lineHeightFive {
+    line-height: 2.2em !important;
+    letter-spacing: 5px !important;
+}
+
+
+html.textSizeOne {  font-size: 5px !important; }
+html.textSizeTwo {  font-size: 15px !important; }
+html.textSizeThree {  font-size:  17px !important; }
 html.textSizeFour { font-size: 19px !important; }
 html.textSizeFive { font-size: 21px !important; }
+
+
 
 h1 {
     font-size: 2rem;

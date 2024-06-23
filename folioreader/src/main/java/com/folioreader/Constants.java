@@ -2,9 +2,13 @@ package com.folioreader;
 
 import android.Manifest;
 
+import androidx.annotation.Keep;
+
 /**
  * Created by mobisys on 10/4/2016.
  */
+
+@Keep
 public class Constants {
     public static final String PUBLICATION = "PUBLICATION";
     public static final String SELECTED_CHAPTER_POSITION = "selected_chapter_position";

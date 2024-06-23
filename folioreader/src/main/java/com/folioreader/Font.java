@@ -15,6 +15,10 @@
  */
 package com.folioreader;
 
+import androidx.annotation.Keep;
+
+
+@Keep
 public class Font {
 
     String name;

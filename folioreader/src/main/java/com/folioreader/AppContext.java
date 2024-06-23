@@ -7,9 +7,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
+
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+@Keep
 public class AppContext extends ContentProvider {
 
     @SuppressLint("StaticFieldLeak")

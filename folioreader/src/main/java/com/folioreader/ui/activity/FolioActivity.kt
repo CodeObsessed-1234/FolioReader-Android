@@ -123,6 +123,7 @@ class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControlle
 
         const val INTENT_EPUB_SOURCE_PATH = "com.folioreader.epub_asset_path"
         const val INTENT_EPUB_SOURCE_TYPE = "epub_source_type"
+        //extra_read_locator is giving null
         const val EXTRA_READ_LOCATOR = "com.folioreader.extra.READ_LOCATOR"
         private const val BUNDLE_READ_LOCATOR_CONFIG_CHANGE = "BUNDLE_READ_LOCATOR_CONFIG_CHANGE"
         private const val BUNDLE_DISTRACTION_FREE_MODE = "BUNDLE_DISTRACTION_FREE_MODE"
@@ -755,6 +756,8 @@ class FolioActivity : AppCompatActivity(), FolioActivityCallback, MediaControlle
     }
 
     override fun getEntryReadLocator(): ReadLocator? {
+
+        Log.d("TAG", "getEntryReadLocator: $entryReadLocator")
         if (entryReadLocator != null) {
             val tempReadLocator = entryReadLocator
             entryReadLocator = null

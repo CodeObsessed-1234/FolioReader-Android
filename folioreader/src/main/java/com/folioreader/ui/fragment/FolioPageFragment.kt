@@ -19,6 +19,7 @@ import android.view.animation.AnimationUtils
 import android.webkit.*
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.annotation.Keep
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -413,6 +414,8 @@ class FolioPageFragment : Fragment(),
                 )
             )
 
+
+
             val rangy = HighlightUtil.generateRangyString(pageName)
             this@FolioPageFragment.rangy = rangy
             if (!rangy.isEmpty())
@@ -462,8 +465,12 @@ class FolioPageFragment : Fragment(),
 
                 val readLocator: ReadLocator?
                 if (savedInstanceState == null) {
-                    Log.v(LOG_TAG, "-> onPageFinished -> took from getEntryReadLocator")
+                    if(mActivityCallback==null)
+                        Log.v(LOG_TAG, "-> onPageFinished -> took from getEntryReadLocator")
+                    else     Log.v(LOG_TAG, "-> onPageFinished -> after yoo")
+
                     readLocator = mActivityCallback!!.entryReadLocator
+
                 } else {
                     Log.v(LOG_TAG, "-> onPageFinished -> took from bundle")
                     readLocator = savedInstanceState!!.getParcelable(BUNDLE_READ_LOCATOR_CONFIG_CHANGE)
@@ -471,9 +478,17 @@ class FolioPageFragment : Fragment(),
                 }
 
                 if (readLocator != null) {
-                    val cfi = readLocator.locations.cfi
-                    Log.v(LOG_TAG, "-> onPageFinished -> readLocator -> " + cfi!!)
-                    mWebview!!.loadUrl(String.format(getString(R.string.callScrollToCfi), cfi))
+                    Log.v(LOG_TAG, "-> onPageFinished -> readLocator -> " + "op this")
+                    try{
+                        //cfi giving null pointer exception
+                        var locations = Locations()
+                        val cfi= readLocator.locations.cfi
+                        Log.v(LOG_TAG, "-> onPageFinished -> readLocator -> " + cfi!!)
+                        mWebview!!.loadUrl(String.format(getString(R.string.callScrollToCfi), cfi))
+                    }
+                    catch(e:Exception){
+                        Log.v(LOG_TAG, "-> onPageFinished -> readLocator -> error $e")
+                    }
                 } else {
                     loadingView!!.hide()
                 }

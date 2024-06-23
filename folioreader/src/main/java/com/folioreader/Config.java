@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import android.util.Log;
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
+import androidx.annotation.Keep;
 import androidx.core.content.ContextCompat;
 import org.json.JSONObject;
 
@@ -13,6 +14,8 @@ import org.json.JSONObject;
  * Configuration class for FolioReader.
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
+
+@Keep
 public class Config implements Parcelable {
 
     private static final String LOG_TAG = Config.class.getSimpleName();
@@ -20,6 +23,7 @@ public class Config implements Parcelable {
     public static final String EXTRA_OVERRIDE_CONFIG = "com.folioreader.extra.OVERRIDE_CONFIG";
     public static final String CONFIG_FONT = "font";
     public static final String CONFIG_FONT_SIZE = "font_size";
+    public static final String CONFIG_LINE_HEIGHT = "line_height";
     public static final String CONFIG_IS_NIGHT_MODE = "is_night_mode";
     public static final String CONFIG_THEME_COLOR_INT = "theme_color_int";
     public static final String CONFIG_IS_TTS = "is_tts";
@@ -31,7 +35,8 @@ public class Config implements Parcelable {
             ContextCompat.getColor(AppContext.get(), R.color.default_theme_accent_color);
 
     private int font = 3;
-    private int fontSize = 2;
+    private int fontSize=2;
+    private int lineHeight=1;
     private boolean nightMode;
     @ColorInt
     private int themeColor = DEFAULT_THEME_COLOR_INT;
@@ -74,6 +79,7 @@ public class Config implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(font);
         dest.writeInt(fontSize);
+        dest.writeInt(lineHeight);
         dest.writeByte((byte) (nightMode ? 1 : 0));
         dest.writeInt(themeColor);
         dest.writeByte((byte) (showTts ? 1 : 0));
@@ -84,6 +90,7 @@ public class Config implements Parcelable {
     protected Config(Parcel in) {
         font = in.readInt();
         fontSize = in.readInt();
+        lineHeight = in.readInt();
         nightMode = in.readByte() != 0;
         themeColor = in.readInt();
         showTts = in.readByte() != 0;
@@ -97,6 +104,7 @@ public class Config implements Parcelable {
     public Config(JSONObject jsonObject) {
         font = jsonObject.optInt(CONFIG_FONT);
         fontSize = jsonObject.optInt(CONFIG_FONT_SIZE);
+        lineHeight = jsonObject.optInt(CONFIG_LINE_HEIGHT);
         nightMode = jsonObject.optBoolean(CONFIG_IS_NIGHT_MODE);
         themeColor = getValidColorInt(jsonObject.optInt(CONFIG_THEME_COLOR_INT));
         showTts = jsonObject.optBoolean(CONFIG_IS_TTS);
@@ -146,8 +154,18 @@ public class Config implements Parcelable {
         return this;
     }
 
+
     public int getFontSize() {
         return fontSize;
+    }
+
+    public int getLineHeight() {
+        return lineHeight;
+    }
+
+    public Config setLineHeight(int lineHeight) {
+        this.lineHeight = lineHeight;
+        return this;
     }
 
     public Config setFontSize(int fontSize) {
@@ -285,6 +303,7 @@ public class Config implements Parcelable {
         return "Config{" +
                 "font=" + font +
                 ", fontSize=" + fontSize +
+                ", line_height=" + lineHeight +
                 ", nightMode=" + nightMode +
                 ", themeColor=" + themeColor +
                 ", showTts=" + showTts +
