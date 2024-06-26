@@ -141,6 +141,7 @@ public class FolioReader {
         return singleton;
     }
 
+
     public FolioReader openBook(int rawId) {
         Intent intent = getIntentFromUrl(null, rawId);
         context.startActivity(intent);

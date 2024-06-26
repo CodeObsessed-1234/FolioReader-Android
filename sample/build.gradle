@@ -28,8 +28,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -62,6 +61,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "androidx.appcompat:appcompat:$versions.appcompat"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -69,7 +69,6 @@ dependencies {
     implementation project(':folioreader')
     //implementation "com.folioreader:folioreader:$versions.folioreaderSdk"
     implementation "com.folioreader:folioreader:0.5.4"
-    implementation 'org.greenrobot:eventbus:3.3.1'
 
     implementation "com.fasterxml.jackson.core:jackson-core:$versions.jackson"
     implementation "com.fasterxml.jackson.core:jackson-annotations:$versions.jackson"

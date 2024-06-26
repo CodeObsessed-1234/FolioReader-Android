@@ -52,6 +52,7 @@ public class HighlightUtil {
                 highlightImpl.setId((int) id);
                 sendHighlightBroadcastEvent(context, highlightImpl, HighLight.HighLightAction.NEW);
             }
+            Log.d(TAG, "createHighlightRangy: "+"in this");
             return rangy;
         } catch (JSONException e) {
             Log.e(TAG, "createHighlightRangy failed", e);
