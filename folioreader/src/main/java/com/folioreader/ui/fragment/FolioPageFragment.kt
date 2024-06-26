@@ -481,7 +481,6 @@ class FolioPageFragment : Fragment(),
                     Log.v(LOG_TAG, "-> onPageFinished -> readLocator -> " + "op this")
                     try{
                         //cfi giving null pointer exception
-                        var locations = Locations()
                         val cfi= readLocator.locations.cfi
                         Log.v(LOG_TAG, "-> onPageFinished -> readLocator -> " + cfi!!)
                         mWebview!!.loadUrl(String.format(getString(R.string.callScrollToCfi), cfi))
